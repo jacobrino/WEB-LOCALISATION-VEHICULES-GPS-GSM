@@ -1,0 +1,83 @@
+img
+{
+  width: 7rem;
+  /*width: 100px;*/
+}
+
+#headPage
+{
+  text-align: center;
+}
+
+.form-group
+{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#map
+{
+  /*Defaut, we hide a maps.*/
+  display: none;
+  height: 40rem;
+}
+
+.row
+{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+input
+{
+  text-align: center;
+}
+
+
+#showHistory
+{
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.leaflet-popup-close-button 
+{
+   display: none; 
+   /*TO DELETE ALL BUTON CLOSE POPUP IN LEAFLET*/
+}
+input[type=color] 
+{
+   display: none;
+}
+.pannelColor 
+{
+   display: flex;
+   align-items: center; 
+}
+.colorCircle 
+{
+  border-radius: 50%;
+  width: 25px;
+  height: 25px; 
+  display:inline-block;
+}
+
+#colorLigne
+{
+  background-color:black;
+}
+
+#colorPoint
+{
+  background-color:green;
+
+}
+.spanPannel
+{
+
+}
+
+
+
+
+

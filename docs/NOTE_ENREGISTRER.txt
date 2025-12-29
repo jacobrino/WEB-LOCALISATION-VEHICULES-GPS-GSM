@@ -1,0 +1,64 @@
+gerer delay pour pouvoir obtenir 3 minutes.?????????
+
+Répetition algorithme recevoirCoordonneGPS et recevoirSignalGSM
+
+<< 612 caractère max GSM.
+Voir pk déffaillance algorithmique?
+
+Algorithme ne marche pas lorsqu'on reçoit un sms directement...
+(tester de vider le buffer gps avant chaque debut boucle).
+
+Erreur sur les sms ,bien gérer les sms en les supprimants.
+
+checkSIMStatus() est private dans la bibliohèque DFRobot
+on change notre code source pour le mettre en public.
+
+
+
+AT+CGPSOUT=32//Pour afficher tat de résultat qui s'affiche en défilement. à faire lorsque la location n'est pas disponible..AT+CGPSOUT=0 pour l'arreter.
+
+Tester l'activation du gps 
+si ce n'est pas OK on relance.
+
+2 clignontement successif entre 2 diodes(GPS pas encore accessible même si activé)
+
+Clignotement sucessif sur l'une diode(celle à gauche sur la vue d'une personne), elle est utilisable..
+
+Tester la localisation à l'ist
+
+receivedStack="$GPRMC,165445.000,A,3110.8635,N,12133.4627,E,0.58,70.26,220916,,,A*57";
+
+xinput1_3.dll
+
+
+Module Sim808 bien alimenté. 
+Module Sim808 prêt à être utilisé. 
+GPS actif
+2022/3/3 20:22:13:0
+Latitude decimal :  
+12.175689
+Longitude decimal :  
+49.178623
+Latitude DMS:  
+12'10'32.479476"
+Longitude DMS:  
+49'10'43.043518"
+Vitesse kph :0.04
+Heading :359.07
+Chargement d'envoie d'SMS
+Le message a envoyer est: 
+Latitude :  12.18
+Longitude :  49.18
+Vitesse :   0.04 kph
+ 
+Erreur, message non envoyé. 
+On attend 3600 secondes avant l'envoie d'un autre SMS
+
+
+COmment aussi demander de lancer l'app au démmarage de l'appareil..????
+
+AT+CGNSPWR=1
+AT+CGNSSEQ="RMC"
+AT+CGPSSTATUS?
+AT+CGNSINF
+AT+CGPSOUT=32

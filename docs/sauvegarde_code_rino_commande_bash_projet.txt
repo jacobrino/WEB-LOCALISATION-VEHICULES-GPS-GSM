@@ -1,0 +1,128 @@
+#><
+#cathicia@cathicia-ThinkPad-Edge-E530c:~$ echo 'qwerty' >> rino.txt
+#cathicia@cathicia-ThinkPad-Edge-E530c:~$ cat rino.txt
+#qwerty
+#cathicia@cathicia-ThinkPad-Edge-E530c:~$ echo 'qwertyehhhh' >> rino.txt
+#cathicia@cathicia-ThinkPad-Edge-E530c:~$ cat rino.txt
+#qwerty
+#qwertyehhhh
+
+#/bin/ls / > /home/resultatation.txt
+#!/bin/bash
+
+delimMessageVu="Vu"	
+minLongueurCoordonnee=120
+delimCoordonnee='$'
+
+listMessageInbox=$(/bin/ls /var/spool/gammu/inbox/);
+tableau=(${listMessageInbox//\n/}) 
+#on split les messages reçu qui sont dans inbox en \n et tester si les messages sont vu ou pas cad il contient le mot "Vu" à la derniere ligne. 
+#S'il est vu, celà veut dire qu'il est déjà dans la base de donnée.
+#Si non, on le met dans la base de donnée structurée.???? 
+
+for i in ${tableau[*]};do	
+#i ici est le nom des messages dans le dossier inbox.
+entrer=$(/bin/cat /var/spool/gammu/inbox/$i); 
+#ici on lit le contenu du message et le mettre ensuite dans entrer.
+
+	if [[ $entrer =~ .*$delimMessageVu.* ]]; then
+	#si la chaine contient le mot Vu
+	echo $entrer " On ne fait rien car il est déjà dans la base de donnee. " # on ne fait plus rien.
+	else
+	#Ici, le message n'est pas encore vu donc, il faut le caster, structuer
+	#Au final le mettre dans la base de donnée ensuite, ajouter "Vu" à la fin.
+	#Le message est de la forme: "20220304192059.000$-49.258512$28.659841$40$20" multiplié par 3
+	#Doit aumoins avoir 40*3 caractères.
+
+	#echo $entrer "Pas egal"
+
+		if [ "${#entrer}" -ge "$minLongueurCoordonnee" ]; then
+		#-ge plus grand ou egal.
+		#Ici, le coordonne est valide. on le caste avec le delim '\n'
+
+		tableauCoordonnee=(${entrer//\n/}) #Operation de split.
+
+			for coordonnee in ${tableauCoordonnee[*]};do
+			#Chaque valeur de coordonnee est maintenant splite avec le delim '$' pour avoir date,lat,longi,alti,vitesse
+			echo "Valeur de coordonnee : $coordonnee"
+			
+			IFS='$'
+			read -a tableauCoordonneeRecup <<< "$coordonnee" #Operation de split.
+
+			date=${tableauCoordonneeRecup[0]}
+			latitude=${tableauCoordonneeRecup[1]}
+			longitude=${tableauCoordonneeRecup[2]}
+			altitude=${tableauCoordonneeRecup[3]}
+			vitesse=${tableauCoordonneeRecup[4]}
+			echo "Valeur de date: $date"
+			echo "Valeur de latitude: $latitude" #OK
+			echo "Valeur de longitude: $longitude" #OK
+			echo "Valeur de altitude: $altitude" #OK
+			echo "Valeur de vitesse: $vitesse" #OK
+
+			done
+		else
+		echo "Coordonnee invalide, on ne fait rien. "
+		fi	
+	fi
+done
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##""##
+
+#echo ${#entrer} #Pour afficher nombre caractere dans le string entrer.
+
+#listMessage=$(/bin/ls /var/spool/gammu/inbox/);
+#Mettre dans listMessage le retour de la commande /bin/ls /var/spool/gammu/inbox/
+
+#tableau=(${listMessage//\n/})
+#Pour spliter la chaine listMessage dans le tableau.
+
+#tableau=(${listMessage//\n/})	#On split avec '\n'
+#echo "Valeur 3 ${#tableau[@]}"	#Pour afficher la taille d'un tableau.
+#echo "Valeur 1 ${tableau[0]}"	#Pour voir l'élement à l'indice 0
+
+#echo "" >> fichier.txt
+#Pour ajouter nouvelle ligne au fichier fichier.txt
+
+#entrer="Mon nom est rino"
+#delim=" s"
+#if [[ $entrer =~ .*$delim.* ]]; then
+#echo "Oui egal"
+#else
+#echo "Non egal"
+#fi
+#Tester si 'delim' est inclus dans la chaine 's'
+
+#for i in ${tableau[*]};do	#Pour parcourir tableau * ou @.
+#echo "$i"
+#done
+
+
+#IFS='$'
+#read -a tableauCoordonneeRecup <<< "$coordonnee"
+#echo "Valeur correspondant : ${tableauCoordonneeRecup[0]}"
+#Permet de spliter un string à travers un char quelcquonque.
